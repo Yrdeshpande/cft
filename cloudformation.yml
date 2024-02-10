@@ -1,3 +1,8 @@
+aws:
+  access_key_id: AKIAQ4ZGQUZRPMYUMRKP
+  secret_access_key: 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
+  region: us-east-1
+
 AWSTemplateFormatVersion: '2010-09-09'
 Description: 'Create a VPC, Subnet, EC2 instance, Security Group, and Key Pair'
 
@@ -31,16 +36,4 @@ Resources:
           CidrIp: '0.0.0.0/0'
 
   MyKeyPair:
-    Type: AWS::EC2::KeyPair
-    Properties:
-      KeyName: mydelete
-
-  MyEC2Instance:
-    Type: AWS::EC2::Instance
-    Properties:
-      InstanceType: t2.micro
-      KeyName: !Ref MyKeyPair
-      ImageId: ami-0e731c8a588258d0d
-      SubnetId: !Ref MySubnet
-      SecurityGroupIds:
-        - !Ref MySecurityGroup
+    T
