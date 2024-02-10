@@ -1,0 +1,46 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'Create a VPC, Subnet, EC2 instance, Security Group, and Key Pair'
+
+Parameters:
+  VpcCIDR:
+    Description: CIDR block for the VPC
+    Type: String
+    Default: '10.0.0.1/17'
+
+Resources:
+  MyVPC:
+    Type: AWS::EC2::VPC
+    Properties:
+      CidrBlock: !Ref VpcCIDR
+
+  MySubnet:
+    Type: AWS::EC2::Subnet
+    Properties:
+      VpcId: !Ref MyVPC
+      CidrBlock: '10.0.0.0/24'
+
+  MySecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EC2 instance
+      VpcId: !Ref MyVPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: '22'
+          ToPort: '22'
+          CidrIp: '0.0.0.0/0'
+
+  MyKeyPair:
+    Type: AWS::EC2::KeyPair
+    Properties:
+      KeyName: mydelete
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      KeyName: !Ref MyKeyPair
+      ImageId: ami-0e731c8a588258d0d
+      SubnetId: !Ref MySubnet
+      SecurityGroupIds:
+        - !Ref MySecurityGroup
