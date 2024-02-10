@@ -49,4 +49,3 @@ Resources:
       SubnetId: !Ref MySubnet
       SecurityGroupIds:
         - !Ref MySecurityGroup
-    T
